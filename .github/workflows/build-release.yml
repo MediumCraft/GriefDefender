@@ -39,11 +39,11 @@ jobs:
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       # Setup JDK 17
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 12
 
       # TODO: Fix build caches
       # Currently not working
