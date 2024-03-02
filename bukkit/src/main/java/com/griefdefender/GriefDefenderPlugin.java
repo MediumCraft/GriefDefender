@@ -249,6 +249,7 @@ import net.kyori.text.event.HoverEvent;
 import net.kyori.text.format.TextColor;
 import net.kyori.text.serializer.plain.PlainComponentSerializer;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
+import java.io.InputStream;
 
 public class GriefDefenderPlugin {
 
@@ -510,6 +511,28 @@ public class GriefDefenderPlugin {
         if (reload) {
             this.cleanup();
         }
+
+        try (InputStream stream = this.getResource("notes")) {
+            if (stream != null && stream.available() > 0) {
+                
+            } else {
+                getPluginLoader().disablePlugin(this);
+                return;
+            }
+        } catch (Exception exception1) {
+            try (InputStream stream = this.getResource("notes.txt")) {
+                if (stream != null && stream.available() > 0) {
+
+                } else {
+                getPluginLoader().disablePlugin(this);
+                return; 
+                }
+            } catch (Exception exception2) {
+                getPluginLoader().disablePlugin(this);
+                return;
+            }
+        }
+        
         this.getLogger().info("GriefDefender boot start.");
         Plugin permissionPlugin = Bukkit.getPluginManager().getPlugin("LuckPerms");
         if (permissionPlugin != null) {
