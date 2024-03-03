@@ -60,7 +60,9 @@ jobs:
         run: chmod +x ./gradlew
       
       - name: Build with Gradle
-        run: ./gradlew build --full-stacktrace
+        run: | 
+          git submodule update --recursive --remote
+          ./gradlew build --full-stacktrace
         continue-on-error: true # So it can upload the dev_env.zip for debug
         
       - name: Archive Repository
